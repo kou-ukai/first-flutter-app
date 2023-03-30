@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         title: 'Namer App',
         theme: ThemeData(
             useMaterial3: true,
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange)),
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigoAccent)),
         home: MyHomePage(),
       ),
     );
@@ -65,7 +65,11 @@ class BigCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // アプリのテーマを取得
+    final theme = Theme.of(context);
     return Card(
+      // アプリのプライマリカラーを適用
+      color: theme.colorScheme.primary,
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Text(pair.asLowerCase),
