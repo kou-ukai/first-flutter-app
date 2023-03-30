@@ -29,9 +29,12 @@ class MyAppState extends ChangeNotifier {
 }
 
 class MyHomePage extends StatelessWidget {
+  // Widgetの状況が変化するたびに呼び出される
   @override
   Widget build(BuildContext context) {
+    // MyAppStateの状況の変化を監視
     var appState = context.watch<MyAppState>();
+    // buildメソッドはWidgetのサブクラスを戻り値に持ち、ルートWidgetはほとんどの場合Scaffoldを返す
     return Scaffold(
       body: Column(children: [
         Text('A random AWESOME idea:'),
