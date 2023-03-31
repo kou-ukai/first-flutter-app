@@ -67,12 +67,15 @@ class BigCard extends StatelessWidget {
   Widget build(BuildContext context) {
     // アプリのテーマを取得
     final theme = Theme.of(context);
+    // アプリテーマのテキストデザインから色だけ指定して複製
+    final style = theme.textTheme.displayMedium!
+        .copyWith(color: theme.colorScheme.onPrimary);
     return Card(
-      // アプリのプライマリカラーを適用
+      // カードにアプリのプライマリカラーを適用
       color: theme.colorScheme.primary,
       child: Padding(
         padding: const EdgeInsets.all(20),
-        child: Text(pair.asLowerCase),
+        child: Text(pair.asLowerCase, style: style),
       ),
     );
   }
