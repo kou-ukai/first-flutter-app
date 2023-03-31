@@ -42,7 +42,7 @@ class MyHomePage extends StatelessWidget {
     var pair = appState.current;
     // buildメソッドはWidgetのサブクラスを戻り値に持ち、ルートWidgetはほとんどの場合Scaffoldを返す
     return Scaffold(
-      body: Column(children: [
+      body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         Text('A random AWESOME idea:'),
         BigCard(pair: pair),
         ElevatedButton(
