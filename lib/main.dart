@@ -48,7 +48,35 @@ class MyHomePage extends StatelessWidget {
   // Widgetの状況が変化するたびに呼び出される
   @override
   Widget build(BuildContext context) {
-    // MyAppStateの状況の変化を監視
+    return Scaffold(
+      body: Row(children: [
+        SafeArea(
+            child: NavigationRail(
+          extended: false,
+          destinations: [
+            NavigationRailDestination(
+                icon: Icon(Icons.home), label: Text('Home')),
+            NavigationRailDestination(
+                icon: Icon(Icons.favorite), label: Text('Favorites')),
+          ],
+          selectedIndex: 0,
+          onDestinationSelected: (value) {
+            print('selected: $value');
+          },
+        )),
+        Expanded(
+            child: Container(
+          color: Theme.of(context).colorScheme.primaryContainer,
+          child: GeneratorPage(),
+        ))
+      ]),
+    );
+  }
+}
+
+class GeneratorPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
     var pair = appState.current;
 
@@ -59,34 +87,30 @@ class MyHomePage extends StatelessWidget {
       icon = Icons.favorite_border;
     }
 
-    // buildメソッドはWidgetのサブクラスを戻り値に持ち、ルートWidgetはほとんどの場合Scaffoldを返す
-    return Scaffold(
-      body: Center(
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Text('A random AWESOME idea:'),
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
           BigCard(pair: pair),
           SizedBox(height: 10),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
             children: [
               ElevatedButton.icon(
-                onPressed: (){
-                  appState.toggleFavorite();
-                },
-                label: Text('Like'),
-                icon: Icon(icon),
-              ),
-
+                  onPressed: () {
+                    appState.toggleFavorite();
+                  },
+                  icon: Icon(icon),
+                  label: Text('Like')),
               SizedBox(width: 10),
-
               ElevatedButton(
                   onPressed: () {
                     appState.getNext();
                   },
-                  child: Text('Next')),
+                  child: Text('Next'))
             ],
           )
-        ]),
+        ],
       ),
     );
   }
