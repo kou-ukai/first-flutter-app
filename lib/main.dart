@@ -49,6 +49,7 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+<<<<<<< HEAD
       body: Row(children: [
         SafeArea(
             child: NavigationRail(
@@ -69,6 +70,16 @@ class MyHomePage extends StatelessWidget {
           color: Theme.of(context).colorScheme.primaryContainer,
           child: GeneratorPage(),
         ))
+=======
+      body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        Text('A random AWESOME idea:'),
+        BigCard(pair: pair),
+        ElevatedButton(
+            onPressed: () {
+              appState.getNext();
+            },
+            child: Text('Next'))
+>>>>>>> 21509c9dfeaceba2a76b12d17ead18da7134b278
       ]),
     );
   }
@@ -128,12 +139,20 @@ class BigCard extends StatelessWidget {
   Widget build(BuildContext context) {
     // アプリのテーマを取得
     final theme = Theme.of(context);
+    // アプリテーマのテキストデザインから色だけ指定して複製
+    final style = theme.textTheme.displayMedium!
+        .copyWith(color: theme.colorScheme.onPrimary);
     return Card(
-      // アプリのプライマリカラーを適用
+      // カードにアプリのプライマリカラーを適用
       color: theme.colorScheme.primary,
       child: Padding(
         padding: const EdgeInsets.all(20),
-        child: Text(pair.asLowerCase),
+        child: Text(
+          pair.asLowerCase,
+          style: style,
+          // 読み上げ用
+          semanticsLabel: "${pair.first} ${pair.second}",
+        ),
       ),
     );
   }
