@@ -49,7 +49,6 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-<<<<<<< HEAD
       body: Row(children: [
         SafeArea(
             child: NavigationRail(
@@ -70,16 +69,6 @@ class MyHomePage extends StatelessWidget {
           color: Theme.of(context).colorScheme.primaryContainer,
           child: GeneratorPage(),
         ))
-=======
-      body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        Text('A random AWESOME idea:'),
-        BigCard(pair: pair),
-        ElevatedButton(
-            onPressed: () {
-              appState.getNext();
-            },
-            child: Text('Next'))
->>>>>>> 21509c9dfeaceba2a76b12d17ead18da7134b278
       ]),
     );
   }
