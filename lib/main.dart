@@ -51,43 +51,56 @@ class MyHomePage extends StatefulWidget {
 
 // _始まりのクラスはprivateクラスを表す
 class _MyHomePageState extends State<MyHomePage> {
-
   var selectedIndex = 0;
 
   // Widgetの状況が変化するたびに呼び出される
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Row(children: [
-        SafeArea(
-            child: NavigationRail(
-          // アイコンの隣にテキストを表示するかの判定
-          extended: false,
-          destinations: [
-            // ナビゲーション　線路　行先
-            NavigationRailDestination(
-                icon: Icon(Icons.home), label: Text('Home')),
-            NavigationRailDestination(
-                icon: Icon(Icons.favorite), label: Text('Favorites')),
-          ],
-          // 選択した行先
-          selectedIndex: selectedIndex,
-          // 行先を選択イベント処理
-          onDestinationSelected: (value) {
-            // notifyListenersと同等
-            setState(() {
-              selectedIndex = value;
-            });
-          },
-        )),
-        // 余っている領域合わせて広がる領域
-        Expanded(
-            child: Container(
-          color: Theme.of(context).colorScheme.primaryContainer,
-          child: GeneratorPage(),
-        ))
-      ]),
-    );
+    Widget page;
+    switch (selectedIndex) {
+      case 0:
+        page = GeneratorPage();
+        break;
+      case 1:
+        // お気に入りページの代わり
+        page = Placeholder();
+        break;
+      default:
+        throw UnimplementedError('no widget for $selectedIndex');
+    }
+    return LayoutBuilder(builder: (context, constraints) {
+      return Scaffold(
+        body: Row(children: [
+          SafeArea(
+              child: NavigationRail(
+            // アイコンの隣にテキストを表示するかの判定
+            extended: constraints.maxWidth > 600,
+            destinations: [
+              // ナビゲーション　線路　行先
+              NavigationRailDestination(
+                  icon: Icon(Icons.home), label: Text('Home')),
+              NavigationRailDestination(
+                  icon: Icon(Icons.favorite), label: Text('Favorites')),
+            ],
+            // 選択した行先
+            selectedIndex: selectedIndex,
+            // 行先を選択イベント処理
+            onDestinationSelected: (value) {
+              // notifyListenersと同等
+              setState(() {
+                selectedIndex = value;
+              });
+            },
+          )),
+          // 余っている領域合わせて広がる領域
+          Expanded(
+              child: Container(
+            color: Theme.of(context).colorScheme.primaryContainer,
+            child: page,
+          ))
+        ]),
+      );
+    });
   }
 }
 
