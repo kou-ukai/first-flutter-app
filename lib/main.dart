@@ -44,7 +44,16 @@ class MyAppState extends ChangeNotifier {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+// _始まりのクラスはprivateクラスを表す
+class _MyHomePageState extends State<MyHomePage> {
+
+  var selectedIndex = 0;
+
   // Widgetの状況が変化するたびに呼び出される
   @override
   Widget build(BuildContext context) {
@@ -52,18 +61,26 @@ class MyHomePage extends StatelessWidget {
       body: Row(children: [
         SafeArea(
             child: NavigationRail(
+          // アイコンの隣にテキストを表示するかの判定
           extended: false,
           destinations: [
+            // ナビゲーション　線路　行先
             NavigationRailDestination(
                 icon: Icon(Icons.home), label: Text('Home')),
             NavigationRailDestination(
                 icon: Icon(Icons.favorite), label: Text('Favorites')),
           ],
-          selectedIndex: 0,
+          // 選択した行先
+          selectedIndex: selectedIndex,
+          // 行先を選択イベント処理
           onDestinationSelected: (value) {
-            print('selected: $value');
+            // notifyListenersと同等
+            setState(() {
+              selectedIndex = value;
+            });
           },
         )),
+        // 余っている領域合わせて広がる領域
         Expanded(
             child: Container(
           color: Theme.of(context).colorScheme.primaryContainer,
